@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sollu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'sollu-dark-green': '#2E7D32',
+                        'sollu-light-green': '#81C784',
+                        'sollu-primary': '#4CAF50',
+                        'sollu-accent': '#66BB6A',
+                        'sollu-bg': '#F1F8E9',
+                        'sollu-dark-bg': '#1B261B',
+                        'sollu-text-dark': '#1B5E20',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+      .grainy-bg::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+        opacity: 0.05;
+        z-index: -10;
+        pointer-events: none;
+      }
+      .radial-gradient-bg {
+        background-image: radial-gradient(circle at top, #F1F8E9, #FFFFFF);
+      }
+      .dark .radial-gradient-bg {
+        background-image: radial-gradient(circle at top, #1B5E20, #1B261B);
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+</head>
+<body class="bg-sollu-bg dark:bg-sollu-dark-bg">
+    <div id="root"></div>
+</body>
+</html>
