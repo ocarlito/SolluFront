@@ -1,0 +1,105 @@
+# Netlify Configuration for Sollu Frontend
+# Documentation: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Build command - runs when deploying
+  command = "npm run build"
+
+  # Directory to publish (Vite outputs to 'dist' by default)
+  publish = "dist"
+
+  # Node.js version to use
+  # Netlify uses Node 18.x by default, specify if you need different version
+  # NODE_VERSION = "18"
+
+# SPA (Single Page Application) routing
+# Redirects all routes to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers for production
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking attacks
+    X-Frame-Options = "DENY"
+
+    # Prevent MIME type sniffing
+    X-Content-Type-Options = "nosniff"
+
+    # Enable XSS protection
+    X-XSS-Protection = "1; mode=block"
+
+    # Referrer policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Permissions policy - restrict browser features
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+
+    # Content Security Policy (adjust as needed)
+    # Note: Currently allows CDN resources (Tailwind CSS, Google Fonts)
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;
+      style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https:;
+      connect-src 'self';
+      frame-ancestors 'none';
+    """
+
+# Cache control for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Don't cache index.html
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Environment-specific settings
+[context.production]
+  command = "npm run build"
+
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"
+
+# Plugin configuration (optional - uncomment if needed)
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+#
+# [[plugins]]
+#   package = "netlify-plugin-submit-sitemap"
+#   [plugins.inputs]
+#     baseUrl = "https://your-domain.com"
+#     sitemapPath = "/sitemap.xml"
+
+# Custom domain configuration (uncomment and configure when ready)
+# [[redirects]]
+#   from = "https://www.sollu.com/*"
+#   to = "https://sollu.com/:splat"
+#   status = 301
+#   force = true

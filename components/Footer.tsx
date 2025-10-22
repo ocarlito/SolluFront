@@ -30,6 +30,7 @@ const Footer: React.FC = () => {
           </div>
           <div>
             <h4 className="font-semibold text-lg mb-4">Contato</h4>
+            {/* DEMO INFORMATION - Replace with real contact details before production deployment */}
             <ul className="space-y-2 text-gray-400">
                 <li>Email: contato@sollu.com</li>
                 <li>Telefone: (11) 98765-4321</li>
